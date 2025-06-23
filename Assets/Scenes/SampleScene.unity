@@ -5318,9 +5318,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseInteraction: No dial tone...
-  iter1Message: "\u201CHey, you\u2019re running out of time. You owe us. Big. You
-    better get everything squared away, or you\u2019re gonna live to regret it. Or
-    not. You get the picture.\u201D"
+  iter1Messages:
+  - "\u201CHey, you\u2019re running out of time. You owe us. Big. You better get
+    everything squared away, or you\u2019re gonna live to regret it. Or not. You
+    get the picture.\u201D"
+  - "\u201CPlaying dumb isn\u2019t going to save you this time.\u201D"
   needsReset: 0
 --- !u!1 &1716053322
 GameObject:

@@ -9,6 +9,7 @@ public class Door : Iterable
     public Transform afterLocation;
     public bool open;
     public Animator animator;
+    public bool permaLocked;
 
     private float playerEnterDist;
 
@@ -76,7 +77,8 @@ public class Door : Iterable
         switch (newIter)
         {
             default:
-                locked = false;
+                if (!permaLocked)
+                    locked = false;
                 break;
         }
         

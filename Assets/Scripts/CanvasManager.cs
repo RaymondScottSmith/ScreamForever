@@ -48,6 +48,13 @@ public class CanvasManager : MonoBehaviour
             StartCoroutine(WriteTextOnScreen(message, duration));
     }
 
+    public void WriteMultipleTexts(List<string> messages, bool holdUntilDone = false, float delayBetweenMessages = 2f)
+    {
+        if (!typingDialogue)
+            StartCoroutine(WriteMultiTextsOnScreen(messages, holdUntilDone, delayBetweenMessages));
+
+    }
+
     private IEnumerator ShowTextOnScreen(string message, float duration)
     {
         textPane.SetActive(true);
@@ -69,6 +76,33 @@ public class CanvasManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(displayTime);
+        subText.text = "";
+        textPane.SetActive(false);
+        typingDialogue = false;
+    }
+
+    private IEnumerator WriteMultiTextsOnScreen(List<string> texts, bool hold, float delay)
+    {
+        textPane.SetActive(true);
+        typingDialogue = true;
+        if (hold)
+        {
+            FindObjectOfType<FirstPersonController>().enabled = false;
+        }
+        foreach (string message in texts)
+        {
+            for (int i = 0; i < message.Length; i++)
+            {
+                currentText = message.Substring(0, i);
+                subText.text = currentText;
+                yield return new WaitForSeconds(typeDelay);
+            }
+            yield return new WaitForSeconds(delay);
+        }
+        if (hold)
+        {
+            FindObjectOfType<FirstPersonController>().enabled = true;
+        }
         subText.text = "";
         textPane.SetActive(false);
         typingDialogue = false;

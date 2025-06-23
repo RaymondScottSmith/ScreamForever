@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Phone : Interact
 {
-    [TextArea]
-    public string iter1Message;
+    
+    public List<string> iter1Messages;
 
     
     public bool needsReset;
@@ -21,8 +21,9 @@ public class Phone : Interact
             case 1:
                 if (!needsReset)
                 {
-                    CanvasManager.Instance.WriteText(iter1Message);
+                    CanvasManager.Instance.WriteMultipleTexts(iter1Messages, true);
                     needsReset = true;
+                    readyToAdvance = true;
                 }
                 else
                 {
@@ -30,9 +31,11 @@ public class Phone : Interact
                 }
                 break;
             default:
+                readyToAdvance = true;
                 CanvasManager.Instance.InterruptDisplay(baseInteraction);
                 break;
         }
+        IterationManager.Instance.ReadyToAdvance();
         
     }
     

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Door
   - Grabber
+  - Interact
   layers:
   - Default
   - TransparentFX

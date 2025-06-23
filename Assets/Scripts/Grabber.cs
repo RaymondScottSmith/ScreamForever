@@ -16,7 +16,7 @@ public class Grabber : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit,5f))
+            if (Physics.Raycast(ray, out hit,1.5f))
             {
                 
                 Grabable grabbed = hit.collider.GetComponent<Grabable>();

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Iterable : MonoBehaviour
 {
+    protected int currentIter;
     private void OnEnable()
     {
         IterationManager.OnAdvance += NextIteration;
@@ -16,6 +17,8 @@ public class Iterable : MonoBehaviour
 
     protected virtual void NextIteration(int newIter)
     {
+        currentIter = newIter;
+        
         Debug.Log(name + " confirms next iteration.");
     }
 

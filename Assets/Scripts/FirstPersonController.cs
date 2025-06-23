@@ -92,6 +92,12 @@ public class FirstPersonController : MonoBehaviour
                     Door door = hit.transform.GetComponentInParent<Door>();
                     door.OpenDoor();
                 }
+
+                if (hit.transform.CompareTag("Interact"))
+                {
+                    Debug.Log("Interact");
+                    hit.collider.GetComponent<Interact>().Interaction();
+                }
               
             }
         }

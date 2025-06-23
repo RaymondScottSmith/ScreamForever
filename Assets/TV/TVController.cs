@@ -53,7 +53,7 @@ public class TVController : MonoBehaviour
         
     }
 
-    public void Tune(axis axis, dir direction)
+    public bool Tune(axis ax, dir direction)
     {
         float tuningAmount = tuningSpeed * Time.deltaTime;
 
@@ -63,7 +63,7 @@ public class TVController : MonoBehaviour
         }
 
 
-        if (axis == axis.H)
+        if (ax == axis.H)
         {
             hValue += tuningAmount;
             hValue = Mathf.Clamp(hValue, axisRange.x, axisRange.y);
@@ -93,10 +93,17 @@ public class TVController : MonoBehaviour
         }
 
 
+        switch (ax)
+        {
+            case axis.H:
+                return !(Mathf.Approximately(hValue, axisRange.x));
+                
+            case axis.V:
+                return !(Mathf.Approximately(vValue, axisRange.y));
+        }
 
 
-        Debug.Log(vValue + " : " + hValue);
-        //Debug.Log(tuningAmount);
+        return false;
         
     }
 

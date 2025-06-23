@@ -1,11 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class TVKnobController : MonoBehaviour
 {
     public TVController TV;
     public TVController.axis axis;
+    public AudioClip click;
+    public AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.loop = false;
+        audioSource.playOnAwake = false;
+        audioSource.clip = click;
+        audioSource.volume = 0.01f;
+        audioSource.spatialBlend = 1;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,18 +38,30 @@ public class TVKnobController : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            TV.Tune(axis, TVController.dir.left);
+            if (TV.Tune(axis, TVController.dir.left))
+            {
+                transform.Rotate(0, 0, 36 * Time.deltaTime);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
             return;
         }
 
 
         if (Input.GetMouseButton(1))
         {
-            TV.Tune(axis, TVController.dir.right);
+            if (TV.Tune(axis, TVController.dir.right))
+            {
+                transform.Rotate(0, 0, -36 * Time.deltaTime);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
             return;
         }
-
-
     }
 
 }

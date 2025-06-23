@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,9 @@ using UnityEngine;
 public class LookAt : MonoBehaviour
 {
     public float lookTime = 1f;
+
     
-    
+
     public void ForceLook(float timer = -1)
     {
         if (timer > 0)
@@ -35,4 +37,6 @@ public class LookAt : MonoBehaviour
         fpc.canMove = true;
         Debug.Log("ending look lock");
     }
+
+    
 }

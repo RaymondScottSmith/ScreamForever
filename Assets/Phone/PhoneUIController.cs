@@ -62,6 +62,7 @@ public class PhoneUIController : MonoBehaviour
     {
         if (dialedNumber.text == "911") //someone will try and call 911, we should handle that!
         {
+            OutgoingCall();
             //do something here to frighten the player.
             return;
         }
@@ -71,10 +72,12 @@ public class PhoneUIController : MonoBehaviour
             if (activeNumbers.Contains(dialedNumber.text))
             {
                 //handle valid call here
+                OutgoingCall();
             } else
             {
                 //send busy signal here / invalid number handling
                 dialedNumber.text = "";
+                IsBusyTone();
             }
         }
     }

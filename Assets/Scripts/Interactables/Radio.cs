@@ -16,4 +16,17 @@ public class Radio : Interact
         IterationManager.Instance.ReadyToAdvance();
         
     }
+    
+    protected override void NextIteration(int newIter)
+    {
+        base.NextIteration(newIter);
+        switch (newIter)
+        {
+            case 0:
+                break;
+            default:
+                readyToAdvance = true;
+                break;
+        }
+    }
 }

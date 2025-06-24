@@ -39,4 +39,19 @@ public class Phone : Interact
         
     }
     
+    protected override void NextIteration(int newIter)
+    {
+        base.NextIteration(newIter);
+        switch (newIter)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            default:
+                readyToAdvance = true;
+                break;
+        }
+    }
+    
 }

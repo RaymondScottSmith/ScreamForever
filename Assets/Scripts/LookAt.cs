@@ -7,7 +7,7 @@ public class LookAt : MonoBehaviour
 {
     public float lookTime = 1f;
 
-    
+    public bool noMorForce;
 
     public void ForceLook(float timer = -1)
     {
@@ -19,7 +19,12 @@ public class LookAt : MonoBehaviour
     [ContextMenu("Force Look")]
     public void ForcedLook()
     {
-        StartCoroutine(LookNow());
+        if (!noMorForce)
+        {
+            noMorForce = true;
+            StartCoroutine(LookNow());
+        }
+        
     }
 
     private IEnumerator LookNow()
@@ -29,7 +34,7 @@ public class LookAt : MonoBehaviour
         fpc.characterController.enabled = false;
         fpc.canMove = false;
         Vector3 direction = (transform.position - fpc.playerCamera.transform.position).normalized;
-        fpc.transform.rotation = Quaternion.LookRotation(direction);
+        fpc.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x,0,direction.z));
         fpc.playerCamera.transform.rotation = Quaternion.LookRotation(direction);
         
         yield return new WaitForSeconds(lookTime);

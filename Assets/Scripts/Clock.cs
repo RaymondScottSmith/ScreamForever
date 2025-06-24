@@ -15,7 +15,7 @@ public class Clock : Iterable
     protected override void NextIteration(int newIter)
     {
         base.NextIteration(newIter);
-        if (times.Count >= newIter)
+        if (times.Count > newIter)
         {
             currentTime = times[newIter];
         }

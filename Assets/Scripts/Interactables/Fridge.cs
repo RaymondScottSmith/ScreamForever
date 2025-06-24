@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Fridge : Interact
 {
+    private Animator fridgeAnimator;
+
+    private void Awake()
+    {
+        fridgeAnimator = GetComponent<Animator>();
+    }
     public override void Interaction()
     {
         switch (currentIter)
@@ -28,5 +34,15 @@ public class Fridge : Interact
                 readyToAdvance = true;
                 break;
         }
+    }
+
+    public void OpenFridge()
+    {
+        fridgeAnimator.SetTrigger("Open");
+    }
+
+    public void CloseFridge()
+    {
+        fridgeAnimator.SetTrigger("Close");
     }
 }

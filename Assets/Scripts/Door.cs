@@ -13,6 +13,9 @@ public class Door : Iterable
 
     private float playerEnterDist;
 
+    public bool lRoomEntrance;
+    public Phone phone;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -65,6 +68,11 @@ public class Door : Iterable
                 {
                     locked = true;
                 }
+            }
+
+            if (currentIter == 1 && lRoomEntrance)
+            {
+                phone.ForceLook();
             }
         }
     }

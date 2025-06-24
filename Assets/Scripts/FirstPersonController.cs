@@ -85,12 +85,18 @@ public class FirstPersonController : MonoBehaviour
         {
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit,1f))
+            if (Physics.Raycast(ray, out hit,1.5f))
             {
                 if (hit.transform.CompareTag("Door"))
                 {
                     Door door = hit.transform.GetComponentInParent<Door>();
                     door.OpenDoor();
+                }
+
+                if (hit.transform.CompareTag("Interact"))
+                {
+                    Debug.Log("Interact");
+                    hit.collider.GetComponent<Interact>().Interaction();
                 }
               
             }

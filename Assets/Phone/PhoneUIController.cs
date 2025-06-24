@@ -50,9 +50,16 @@ public class PhoneUIController : MonoBehaviour
                 string value = keys.Value;
                 string key = keys.Key;
                 PlayButtonTone(key);
+
+                //clear the keypad in case of mistake
+                if (key == "KeyPound")
+                {
+                    dialedNumber.text = "";
+                    return;
+                }
+
                 AddNumberToKeypad(value);
                 CallNumber();
-                //code here to handle what to do when we have a number that will dial.
             });
         }
 
@@ -60,7 +67,7 @@ public class PhoneUIController : MonoBehaviour
 
     private void CallNumber()
     {
-        if (dialedNumber.text == "911") //someone will try and call 911, we should handle that!
+        if (dialedNumber.text == "911" || dialedNumber.text == "999") //someone will try and call 911, we should handle that! (999 is UK emergency number)
         {
             OutgoingCall();
             //do something here to frighten the player.

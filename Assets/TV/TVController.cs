@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 
 public class TVController : MonoBehaviour
 {
+    public MeshRenderer renderer;
     public GameObject tuneHKnob; //horizantal image tuning
     public GameObject tuneVKnob; //vertical image tuning
 
@@ -17,6 +18,7 @@ public class TVController : MonoBehaviour
 
     public Material screenMaterial;
     public Material staticMaterial; //used when the TV isn't showing anything
+    public Material offMaterial;
     public Texture2D screenTexture;
 
     private float graceRange = 0.25f;
@@ -27,6 +29,7 @@ public class TVController : MonoBehaviour
     public AudioClip hum;
 
     private GameObject soundEffect;
+    public bool isOn = true;
 
     public enum axis { H, V }
     public enum dir { left, right };
@@ -34,8 +37,13 @@ public class TVController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         screenMaterial.SetFloat("_ScrollSpeed", vValue);
         screenMaterial.SetFloat("_Flicker", hValue);
+
+        Material[] materials = renderer.materials;
+        materials[1] = new Material(staticMaterial);
+        renderer.materials = materials;
 
         soundEffect = new GameObject("TVHum");
         soundEffect.transform.position = transform.position;
@@ -113,10 +121,12 @@ public class TVController : MonoBehaviour
 
         if (state)
         {
-            
+            if (soundEffect != null) soundEffect.GetComponent<AudioSource>().Play();
         } else
         {
-
+            if (soundEffect != null) soundEffect.GetComponent<AudioSource>().Stop();
         }
+
+        isOn = state;
     }
 }

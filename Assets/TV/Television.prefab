@@ -97,7 +97,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 60ac0e19476128e4eb0e8e7abdc10896, type: 2}
-  - {fileID: 2100000, guid: c543b466228c6594fbf15405f0f0e11c, type: 2}
+  - {fileID: 2100000, guid: c380fa16f1e49e145b49cce1cadbc24c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2817a73620e15ba4d9e94b70fe7686b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 2493648121221453995}
   tuneHKnob: {fileID: 4151135443361905881}
   tuneVKnob: {fileID: 4151135444601121375}
   axisRange: {x: -10, y: 10}
@@ -139,8 +140,10 @@ MonoBehaviour:
   tuningSpeed: 1
   screenMaterial: {fileID: 2100000, guid: c543b466228c6594fbf15405f0f0e11c, type: 2}
   staticMaterial: {fileID: 2100000, guid: 19ee797039c7a6947b76599a67d4af19, type: 2}
+  offMaterial: {fileID: 2100000, guid: c380fa16f1e49e145b49cce1cadbc24c, type: 2}
   screenTexture: {fileID: 0}
   hum: {fileID: 8300000, guid: 2e582d3dbc192a2438c0194ae15147b2, type: 3}
+  isOn: 1
 --- !u!1001 &3844563767563556622
 PrefabInstance:
   m_ObjectHideFlags: 0

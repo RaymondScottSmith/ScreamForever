@@ -1,0 +1,8 @@
+Textures:
+
+https://texturelabs.org/textures/glass_127/
+https://texturelabs.org/textures/wood_293/
+
+
+Sounds:
+https://freesound.org/people/Krokulator/sounds/651105/

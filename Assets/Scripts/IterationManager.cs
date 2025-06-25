@@ -25,6 +25,15 @@ public class IterationManager : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        if (currentIteration > 0)
+        {
+            currentIteration--;
+            StartNextIteration();
+        }
+    }
+
     public void ReadyToAdvance()
     {
         exitDoor.locked = true;

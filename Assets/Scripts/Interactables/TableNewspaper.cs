@@ -9,9 +9,15 @@ public class TableNewspaper : Interact
 
     public Lamp attachedLamp;
 
+    public List<Material> newspaperMaterials;
+
+    private int paperNumber = 0;
+
+    public Renderer pageRenderer;
+
     private void Awake()
     {
-        renderer = GetComponent<MeshRenderer>();
+        //renderer = GetComponent<MeshRenderer>();
         collider = GetComponent<Collider>();
     }
     public override void Interaction()
@@ -19,9 +25,9 @@ public class TableNewspaper : Interact
         readyToAdvance = true;
         //CanvasManager.Instance.InterruptDisplay(baseInteraction);
         IterationManager.Instance.ReadyToAdvance();
-        renderer.enabled = false;
         collider.enabled = false;
         attachedLamp.StopFlickering();
+        AddNewPiece();
 
     }
     protected override void NextIteration(int newIter)
@@ -37,5 +43,13 @@ public class TableNewspaper : Interact
         {
             readyToAdvance = true;
         }
+    }
+
+    [ContextMenu("Add Piece")]
+    public void AddNewPiece()
+    {
+        paperNumber++;
+        if (paperNumber < newspaperMaterials.Count)
+            pageRenderer.material = newspaperMaterials[paperNumber];
     }
 }

@@ -9,7 +9,7 @@ public class NewspaperClip : Interact
 
     private void Awake()
     {
-        renderer = GetComponent<MeshRenderer>();
+        //renderer = GetComponent<MeshRenderer>();
         collider = GetComponent<Collider>();
     }
     public override void Interaction()

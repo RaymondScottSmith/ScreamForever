@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Rendering;
 
-public class TVController : MonoBehaviour
+public class TVController : Iterable
 {
     public MeshRenderer renderer;
     public GameObject tuneHKnob; //horizantal image tuning

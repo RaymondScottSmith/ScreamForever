@@ -22,6 +22,8 @@ public class FirstPersonController : MonoBehaviour
 
     public Grabber grabber;
 
+    public LayerMask playerMask;
+
     private void Awake()
     {
         grabber = GetComponentInChildren<Grabber>();
@@ -84,8 +86,9 @@ public class FirstPersonController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(playerCamera.transform.position, playerCamera.ScreenPointToRay(Input.mousePosition).direction.normalized*2f, Color.green,20f );
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit,1.5f))
+            if (Physics.Raycast(ray, out hit,2f,playerMask))
             {
                 if (hit.transform.CompareTag("Door"))
                 {
@@ -98,6 +101,8 @@ public class FirstPersonController : MonoBehaviour
                     Debug.Log("Interact");
                     hit.collider.GetComponent<Interact>().Interaction();
                 }
+                
+                Debug.Log(hit.transform.name);
               
             }
         }

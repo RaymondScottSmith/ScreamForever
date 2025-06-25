@@ -12,9 +12,16 @@ public class Phone : Interact
     
     public bool needsReset;
 
+    public GameObject phoneUI;
+    public AudioSource phoneAudio;
+
+    public AudioClip ringSound;
+
     private void Awake()
     {
         lookAt = GetComponent<LookAt>();
+        phoneUI.GetComponent<PhoneUIController>().phone = this;
+        phoneAudio = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -27,6 +34,7 @@ public class Phone : Interact
             case 1:
                 if (!needsReset)
                 {
+                    StopLoop();
                     CanvasManager.Instance.WriteMultipleTexts(iter1Messages, true);
                     needsReset = true;
                     readyToAdvance = true;
@@ -38,29 +46,48 @@ public class Phone : Interact
                 break;
             
             case 4:
-                if (!needsReset)
-                {
-                    CanvasManager.Instance.WriteMultipleTexts(iter1Messages, true);
-                    needsReset = true;
-                    readyToAdvance = true;
-                }
-                else
-                {
-                    CanvasManager.Instance.InterruptDisplay(baseInteraction);
-                }
+                //readyToAdvance = true;
+                //CanvasManager.Instance.InterruptDisplay(baseInteraction);
+                phoneUI.SetActive(true);
                 break;
             default:
                 readyToAdvance = true;
-                CanvasManager.Instance.InterruptDisplay(baseInteraction);
+                //CanvasManager.Instance.InterruptDisplay(baseInteraction);
+                phoneUI.SetActive(true);
                 break;
         }
         IterationManager.Instance.ReadyToAdvance();
         
     }
 
+    private IEnumerator DelaySound()
+    {
+        PlayLoop(ringSound);
+        yield return new WaitForSeconds(0.25f);
+        lookAt.ForceLook();
+    }
+
     public void ForceLook()
     {
-        lookAt.ForceLook();
+        StartCoroutine(DelaySound());
+    }
+
+    public void PlayOneShot(AudioClip clip)
+    {
+        phoneAudio.PlayOneShot(clip);
+    }
+
+    public void PlayLoop(AudioClip clip)
+    {
+        phoneAudio.loop = true;
+        phoneAudio.clip = clip;
+        phoneAudio.Play();
+    }
+
+    public void StopLoop()
+    {
+        phoneAudio.Stop();
+        phoneAudio.loop = false;
     }
     
     protected override void NextIteration(int newIter)
@@ -80,5 +107,21 @@ public class Phone : Interact
                 break;
         }
     }
-    
+
+    public void OutgoingCall()
+    {
+        StartCoroutine(OutgoingDelay());
+    }
+
+    private IEnumerator OutgoingDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        StopLoop();
+        yield return new WaitForSeconds(0.5f);
+        if (currentIter == 4)
+            CanvasManager.Instance.WriteMultipleTexts(iter4Messages, true);
+        readyToAdvance = true;
+        IterationManager.Instance.ReadyToAdvance();
+    }
+
 }

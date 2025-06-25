@@ -9,6 +9,7 @@ public class TVKnobController : MonoBehaviour
     public TVController.axis axis;
     public AudioClip click;
     public AudioSource audioSource;
+    public bool locked;
 
     private void Awake()
     {
@@ -36,6 +37,8 @@ public class TVKnobController : MonoBehaviour
     {
         if (TV == null) throw new System.Exception("TV Knob is not attached to a tv!");
 
+        if (locked)
+            return;
         if (Input.GetMouseButton(0))
         {
             if (TV.Tune(axis, TVController.dir.left))
@@ -46,9 +49,16 @@ public class TVKnobController : MonoBehaviour
                     audioSource.Play();
                 }
             }
+            else
+            {
+                locked = true;
+            }
+
+            
             return;
         }
 
+        /*
 
         if (Input.GetMouseButton(1))
         {
@@ -62,6 +72,7 @@ public class TVKnobController : MonoBehaviour
             }
             return;
         }
+        */
     }
 
 }

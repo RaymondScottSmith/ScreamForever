@@ -30,10 +30,11 @@ public class NewspaperClip : Interact
             renderer.enabled = true;
             collider.enabled = true;
         }
-        else if (newIter == 4)
+        else if (newIter == 5)
         {
             renderer.enabled = true;
             collider.enabled = true;
+            readyToAdvance = true;
         }
         else
         {

@@ -34,6 +34,9 @@ public class TVController : Iterable
     public enum axis { H, V }
     public enum dir { left, right };
 
+    public AudioClip staticNoise;
+    public AudioClip staticScream;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,18 +44,17 @@ public class TVController : Iterable
         screenMaterial.SetFloat("_ScrollSpeed", vValue);
         screenMaterial.SetFloat("_Flicker", hValue);
 
-        Material[] materials = renderer.materials;
-        materials[1] = new Material(staticMaterial);
-        renderer.materials = materials;
-
-        soundEffect = new GameObject("TVHum");
+        soundEffect = new GameObject("TVSound");
         soundEffect.transform.position = transform.position;
         AudioSource humSource = soundEffect.AddComponent<AudioSource>();
         humSource.loop = true;
         humSource.volume = 0.1f;
         humSource.spatialBlend = 1;
         humSource.clip = hum;
-        humSource.Play();
+        //humSource.Play();
+
+
+        SetToPuzzle();
     }
 
     // Update is called once per frame
@@ -119,14 +121,42 @@ public class TVController : Iterable
     {
         //@todo on/off mechanics for TV
 
+        if (soundEffect == null) return;
+
         if (state)
         {
-            if (soundEffect != null) soundEffect.GetComponent<AudioSource>().Play();
+            soundEffect.GetComponent<AudioSource>().Play();
         } else
         {
-            if (soundEffect != null) soundEffect.GetComponent<AudioSource>().Stop();
+            soundEffect.GetComponent<AudioSource>().Stop();
         }
 
         isOn = state;
+    }
+
+    public void SetToStatic()
+    {
+        Material[] materials = renderer.materials;
+        materials[1] = new Material(staticMaterial);
+        renderer.materials = materials;
+
+        if (soundEffect != null)
+        {
+            soundEffect.GetComponent<AudioSource>().clip = staticNoise;
+            soundEffect.GetComponent<AudioSource>().Play();
+        }
+    }
+
+    public void SetToPuzzle()
+    {
+        Material[] materials = renderer.materials;
+        materials[1] = new Material(screenMaterial);
+        renderer.materials = materials;
+
+        if (soundEffect != null)
+        {
+            soundEffect.GetComponent<AudioSource>().clip = hum;
+            soundEffect.GetComponent<AudioSource>().Play();
+        }
     }
 }

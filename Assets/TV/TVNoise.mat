@@ -34,7 +34,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainImage:
-        m_Texture: {fileID: 2800000, guid: 494eb23f1ed45e24b88a2ebb4d6f5d0d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 84c9c9ee89fd5394dac99b0d5ec24ee7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Overlay:
@@ -45,7 +45,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Flicker: -10
-    - _ScrollSpeed: 10
+    - _Flicker: 10
+    - _ScrollSpeed: 0.69093734
     m_Colors: []
   m_BuildTextureStacks: []

@@ -86,7 +86,7 @@ public class FirstPersonController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(playerCamera.transform.position, playerCamera.ScreenPointToRay(Input.mousePosition).direction.normalized*2f, Color.green,20f );
+            //Debug.DrawRay(playerCamera.transform.position, playerCamera.ScreenPointToRay(Input.mousePosition).direction.normalized*2f, Color.green,20f );
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit,2f,playerMask))
             {
@@ -102,7 +102,7 @@ public class FirstPersonController : MonoBehaviour
                     hit.collider.GetComponent<Interact>().Interaction();
                 }
                 
-                Debug.Log(hit.transform.name);
+                //Debug.Log(hit.transform.name);
               
             }
         }

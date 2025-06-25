@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Rendering;
 
-public class TVController : Iterable
+public class TVController : Interact
 {
     public MeshRenderer renderer;
     public GameObject tuneHKnob; //horizantal image tuning
@@ -19,14 +19,16 @@ public class TVController : Iterable
     public Material screenMaterial;
     public Material staticMaterial; //used when the TV isn't showing anything
     public Material offMaterial;
+    public Material fullAdd;
     public Texture2D screenTexture;
 
-    private float graceRange = 0.25f;
+    private float graceRange = 0.1f;
 
     private bool lockH = false;
     private bool lockV = false;
 
     public AudioClip hum;
+    private AudioSource audioSource;
 
     private GameObject soundEffect;
     public bool isOn = true;
@@ -37,24 +39,35 @@ public class TVController : Iterable
     public AudioClip staticNoise;
     public AudioClip staticScream;
 
+    private Collider tvCollider;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        tvCollider = GetComponent<Collider>();
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
 
         screenMaterial.SetFloat("_ScrollSpeed", vValue);
         screenMaterial.SetFloat("_Flicker", hValue);
-
         soundEffect = new GameObject("TVSound");
+
+        Material[] materials = renderer.materials;
+        materials[1] = offMaterial;
+        renderer.materials = materials;
+
+        soundEffect = new GameObject("TVHum");
         soundEffect.transform.position = transform.position;
         AudioSource humSource = soundEffect.AddComponent<AudioSource>();
         humSource.loop = true;
-        humSource.volume = 0.1f;
+        humSource.volume = 1f;
         humSource.spatialBlend = 1;
         humSource.clip = hum;
-        //humSource.Play();
-
-
-        SetToPuzzle();
+        humSource.Play();
     }
 
     // Update is called once per frame
@@ -76,14 +89,51 @@ public class TVController : Iterable
         if (ax == axis.H)
         {
             hValue += tuningAmount;
-            hValue = Mathf.Clamp(hValue, axisRange.x, axisRange.y);
+            if (hValue < axisRange.x)
+            {
+                hValue = axisRange.y;
+            }
+            Debug.Log(hValue);
+            //hValue = Mathf.Clamp(hValue, axisRange.x, axisRange.y);
             lockH = Mathf.Abs(hValue) <= graceRange;
+            if (lockH)
+            {
+                screenMaterial.SetFloat("_Flicker", 0f);
+            } else
+            {
+                screenMaterial.SetFloat("_Flicker", hValue);
+            }
+            if (lockH && lockV)
+            {
+                ChangeMaterial(fullAdd);
+            }
+            if (lockH)
+                return false;
         }
         else
         {
             vValue += tuningAmount;
-            vValue = Mathf.Clamp(vValue, axisRange.x, axisRange.y);
+            if (vValue < axisRange.x)
+            {
+                vValue = axisRange.y;
+            }
+            Debug.Log(vValue);
+            //vValue = Mathf.Clamp(vValue, axisRange.x, axisRange.y);
             lockV = Mathf.Abs(vValue) <= graceRange;
+            if (lockV)
+            {
+                screenMaterial.SetFloat("_ScrollSpeed", 0);
+            } else
+            {
+                screenMaterial.SetFloat("_ScrollSpeed", vValue);
+            }
+
+            if (lockH && lockV)
+            {
+                ChangeMaterial(fullAdd);
+            }
+            if (lockV)
+                return false;
         }
 
         if (lockH)
@@ -94,13 +144,7 @@ public class TVController : Iterable
             screenMaterial.SetFloat("_Flicker", hValue);
         }
 
-        if (lockV)
-        {
-            screenMaterial.SetFloat("_ScrollSpeed", 0);
-        } else
-        {
-            screenMaterial.SetFloat("_ScrollSpeed", vValue);
-        }
+        
 
 
         switch (ax)
@@ -133,30 +177,72 @@ public class TVController : Iterable
 
         isOn = state;
     }
-
-    public void SetToStatic()
+  
+    protected override void NextIteration(int newIter)
     {
-        Material[] materials = renderer.materials;
-        materials[1] = new Material(staticMaterial);
-        renderer.materials = materials;
-
-        if (soundEffect != null)
+        base.NextIteration(newIter);
+        switch (newIter)
         {
-            soundEffect.GetComponent<AudioSource>().clip = staticNoise;
-            soundEffect.GetComponent<AudioSource>().Play();
+            case 4:
+                ChangeMaterial(screenMaterial);
+                tvCollider.enabled = false;
+                readyToAdvance = true;
+                break;
+            
+            case 5:
+                ChangeMaterial(offMaterial);
+                tvCollider.enabled = true;
+                readyToAdvance = true;
+                break;
+
+            default:
+                ChangeMaterial(offMaterial);
+                readyToAdvance = true;
+                break;
         }
     }
 
-    public void SetToPuzzle()
+    public void StartLoopingAudio(AudioClip clip)
     {
-        Material[] materials = renderer.materials;
-        materials[1] = new Material(screenMaterial);
-        renderer.materials = materials;
+        audioSource.loop = true;
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
 
-        if (soundEffect != null)
+    public void StopAudio()
+    {
+        audioSource.loop = false;
+        audioSource.Stop();
+    }
+
+    public override void Interaction()
+    {
+        base.Interaction();
+        isOn = !isOn;
+        if (isOn)
         {
-            soundEffect.GetComponent<AudioSource>().clip = hum;
-            soundEffect.GetComponent<AudioSource>().Play();
+            switch (currentIter)
+            {
+                default:
+                    ChangeMaterial(staticMaterial);
+                    StartLoopingAudio(hum);
+                    readyToAdvance = true;
+                    break;
+            }
         }
+        else
+        {
+            ChangeMaterial(offMaterial);
+            StopAudio();
+        }
+
+    }
+
+    public void ChangeMaterial(Material newMaterial)
+    {
+        Debug.Log("Should be changing material");
+        Material[] materials = renderer.materials;
+        materials[1] = newMaterial;
+        renderer.materials = materials;
     }
 }

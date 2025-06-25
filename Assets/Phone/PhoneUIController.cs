@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class PhoneUIController : MonoBehaviour
 {
@@ -17,13 +19,20 @@ public class PhoneUIController : MonoBehaviour
     public AudioClip busyEffect;
     public AudioClip ringer;
 
+    private FirstPersonController fPC;
+    public Phone phone;
+
     private void Awake()
     {
         document = GetComponent<UIDocument>();
+        fPC = FindObjectOfType<FirstPersonController>();
     }
 
-    void Start()
+    private void OnEnable()
     {
+        fPC.enabled = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         root = document.rootVisualElement;
         dialedNumber = root.Q<Label>("DialedNumber");
 
@@ -62,6 +71,12 @@ public class PhoneUIController : MonoBehaviour
                 CallNumber();
             });
         }
+    }
+
+    void Start()
+    {
+        
+        
 
     }
 
@@ -71,22 +86,34 @@ public class PhoneUIController : MonoBehaviour
         {
             OutgoingCall();
             //do something here to frighten the player.
+            fPC.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            this.gameObject.SetActive(false);
             return;
         }
 
         if (dialedNumber.text.Length == 7) 
         {
-            if (activeNumbers.Contains(dialedNumber.text))
+            if (activeNumbers.Contains(dialedNumber.text) && phone.currentIter == 4 && phone.needsReset)
             {
                 //handle valid call here
                 OutgoingCall();
+                phone.needsReset = false;
+                phone.readyToAdvance = true;
             } else
             {
                 //send busy signal here / invalid number handling
                 dialedNumber.text = "";
                 IsBusyTone();
+                fPC.enabled = true;
             }
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            
+            this.gameObject.SetActive(false);
         }
+       
     }
 
     public void AddNumberToKeypad(string number)
@@ -136,30 +163,30 @@ public class PhoneUIController : MonoBehaviour
 
         }
 
-        AudioSource.PlayClipAtPoint(clip, transform.position, 0.5f);
+        //AudioSource.PlayClipAtPoint(clip, transform.position, 0.5f);
+        phone.PlayOneShot(clip);
     }
 
     public void IsBusyTone()
     {
-        AudioSource.PlayClipAtPoint(busyEffect, transform.position, 0.5f);
+        //AudioSource.PlayClipAtPoint(busyEffect, transform.position, 0.5f);
+        phone.PlayOneShot(busyEffect);
+        fPC.enabled = true;
+        
 
     }
 
     public void IncomingCall()
     {
-        AudioSource.PlayClipAtPoint(ringer, transform.position, 0.5f);
+        //AudioSource.PlayClipAtPoint(ringer, transform.position, 0.5f);
+        phone.PlayOneShot(ringer);
     }
 
     public void OutgoingCall()
     {
-        AudioSource.PlayClipAtPoint(callEffect, transform.position, 1f);
-    }
+        //AudioSource.PlayClipAtPoint(callEffect, transform.position, 1f);
+        phone.PlayOneShot(callEffect);
+        phone.OutgoingCall();
 
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

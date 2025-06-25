@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Iterable : MonoBehaviour
 {
-    protected int currentIter;
+    public int currentIter;
     public bool readyToAdvance;
     private void OnEnable()
     {

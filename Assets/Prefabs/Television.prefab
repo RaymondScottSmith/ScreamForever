@@ -63,7 +63,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 60ac0e19476128e4eb0e8e7abdc10896, type: 2}
-  - {fileID: 2100000, guid: c380fa16f1e49e145b49cce1cadbc24c, type: 2}
+  - {fileID: 2100000, guid: c543b466228c6594fbf15405f0f0e11c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2817a73620e15ba4d9e94b70fe7686b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentIter: 0
   readyToAdvance: 0
+  baseInteraction: 
   renderer: {fileID: 4456301227862940402}
   tuneHKnob: {fileID: 2798716873281076864}
   tuneVKnob: {fileID: 2798716874763429894}
@@ -108,6 +110,7 @@ MonoBehaviour:
   screenMaterial: {fileID: 2100000, guid: c543b466228c6594fbf15405f0f0e11c, type: 2}
   staticMaterial: {fileID: 2100000, guid: 19ee797039c7a6947b76599a67d4af19, type: 2}
   offMaterial: {fileID: 2100000, guid: c380fa16f1e49e145b49cce1cadbc24c, type: 2}
+  fullAdd: {fileID: 0}
   screenTexture: {fileID: 0}
   hum: {fileID: 8300000, guid: 77110feebe520624d8ddfbdf0e3e28f7, type: 3}
   isOn: 1
@@ -255,6 +258,7 @@ MonoBehaviour:
   axis: 1
   click: {fileID: 8300000, guid: a1ec31c6679a8804bb3af9d1e96983b8, type: 3}
   audioSource: {fileID: 0}
+  locked: 0
 --- !u!4 &3286742104677167804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 424a86b9098922242bd66d406bc8dcfe, type: 3}
@@ -368,6 +372,7 @@ MonoBehaviour:
   axis: 0
   click: {fileID: 8300000, guid: a1ec31c6679a8804bb3af9d1e96983b8, type: 3}
   audioSource: {fileID: 0}
+  locked: 0
 --- !u!4 &3286742103987528762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 424a86b9098922242bd66d406bc8dcfe, type: 3}

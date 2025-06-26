@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2817a73620e15ba4d9e94b70fe7686b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readyToAdvance: 0
   renderer: {fileID: 4456301227862940402}
   tuneHKnob: {fileID: 2798716873281076864}
   tuneVKnob: {fileID: 2798716874763429894}
@@ -108,8 +109,10 @@ MonoBehaviour:
   staticMaterial: {fileID: 2100000, guid: 19ee797039c7a6947b76599a67d4af19, type: 2}
   offMaterial: {fileID: 2100000, guid: c380fa16f1e49e145b49cce1cadbc24c, type: 2}
   screenTexture: {fileID: 0}
-  hum: {fileID: 8300000, guid: 2e582d3dbc192a2438c0194ae15147b2, type: 3}
+  hum: {fileID: 8300000, guid: 77110feebe520624d8ddfbdf0e3e28f7, type: 3}
   isOn: 1
+  staticNoise: {fileID: 8300000, guid: 5f4370a5723e8ad4a8be61e128892267, type: 3}
+  staticScream: {fileID: 8300000, guid: 9c24b100ac308704ab5cc54818ede9bf, type: 3}
 --- !u!1 &3032721327368881706
 GameObject:
   m_ObjectHideFlags: 0

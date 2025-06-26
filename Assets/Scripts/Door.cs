@@ -15,6 +15,9 @@ public class Door : Iterable
 
     public bool lRoomEntrance;
     public Phone phone;
+    public AudioClip lockedEffect;
+    public AudioClip openingEffect;
+    public AudioClip closingEffect;
 
     private void Awake()
     {
@@ -25,12 +28,14 @@ public class Door : Iterable
         if (locked)
         {
             Debug.Log("Add door is locked message");
+            AudioSource.PlayClipAtPoint(lockedEffect, transform.position);
             return;
         }
         else
         {
             animator.ResetTrigger("Close");
             animator.SetTrigger("Open");
+            AudioSource.PlayClipAtPoint(openingEffect, transform.position);
             open = true;
         }
     }
@@ -40,6 +45,7 @@ public class Door : Iterable
         animator.ResetTrigger("Open");
         animator.SetTrigger("Close");
         open = false;
+        AudioSource.PlayClipAtPoint(closingEffect, transform.position);
     }
 
     public void ChangeLockedState(bool isLocked)

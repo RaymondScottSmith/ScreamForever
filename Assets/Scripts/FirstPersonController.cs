@@ -26,6 +26,9 @@ public class FirstPersonController : MonoBehaviour
 
     public GameObject heldGascan;
 
+    public int numGasUses = 0;
+    public int totalGasUses = 3;
+
     private void Awake()
     {
         grabber = GetComponentInChildren<Grabber>();
@@ -70,6 +73,7 @@ public class FirstPersonController : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
+        if (canMove)
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
 
@@ -81,6 +85,22 @@ public class FirstPersonController : MonoBehaviour
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
+    }
+
+    public IEnumerator ReturnGasCan()
+    {
+        yield return new WaitForSeconds(4.5f);
+        ReturnCanToPlayer();
+    }
+
+    public void ReturnCanToPlayer()
+    {
+        numGasUses++;
+        FirstPersonController fpc = FindObjectOfType<FirstPersonController>();
+        fpc.heldGascan.SetActive(true);
+        fpc.canMove = true;
+        if (numGasUses >= totalGasUses)
+            fpc.heldGascan.SetActive(false);
     }
     private void Interact()
     {

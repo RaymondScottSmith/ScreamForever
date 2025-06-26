@@ -16,6 +16,7 @@ public class LookAt : MonoBehaviour
 
         StartCoroutine(LookNow());
     }
+    /*
     [ContextMenu("Force Look")]
     public void ForcedLook()
     {
@@ -26,6 +27,7 @@ public class LookAt : MonoBehaviour
         }
         
     }
+    */
 
     private IEnumerator LookNow()
     {

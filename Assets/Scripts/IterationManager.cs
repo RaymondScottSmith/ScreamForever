@@ -41,6 +41,7 @@ public class IterationManager : MonoBehaviour
         {
             if (!inter.readyToAdvance)
             {
+                Debug.Log(inter.name + "Not ready yet");
                 return;
             }
                 

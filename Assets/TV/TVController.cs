@@ -41,6 +41,10 @@ public class TVController : Interact
 
     private Collider tvCollider;
 
+    public Animator gasAnimator;
+
+    public bool gasSoaked;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -192,9 +196,7 @@ public class TVController : Interact
             case 5:
                 ChangeMaterial(offMaterial);
                 tvCollider.enabled = true;
-                readyToAdvance = true;
                 break;
-
             default:
                 ChangeMaterial(offMaterial);
                 readyToAdvance = true;
@@ -218,23 +220,49 @@ public class TVController : Interact
     public override void Interaction()
     {
         base.Interaction();
-        isOn = !isOn;
-        if (isOn)
+        switch (currentIter)
         {
-            switch (currentIter)
-            {
-                default:
-                    ChangeMaterial(staticMaterial);
-                    StartLoopingAudio(hum);
-                    readyToAdvance = true;
-                    break;
-            }
+            case 5:
+                FirstPersonController fpc = FindObjectOfType<FirstPersonController>();
+                
+                if (gasSoaked)
+                {
+                    
+                }
+                else if (fpc.heldGascan.activeSelf)
+                {
+                    gasAnimator.GetComponent<LookAt>().ForceLook();
+                    fpc.canMove = false;
+                    fpc.heldGascan.SetActive(false);
+                    gasAnimator.SetTrigger("Pour");
+                    gasSoaked = true;
+                    StartCoroutine(fpc.ReturnGasCan());
+                }
+                readyToAdvance = true;
+                IterationManager.Instance.ReadyToAdvance();
+                break;
+
+            default:
+                isOn = !isOn;
+                if (isOn)
+                {
+                    switch (currentIter)
+                    {
+                        default:
+                            ChangeMaterial(staticMaterial);
+                            StartLoopingAudio(hum);
+                            readyToAdvance = true;
+                            break;
+                    }
+                }
+                else
+                {
+                    ChangeMaterial(offMaterial);
+                    StopAudio();
+                }
+                break;
         }
-        else
-        {
-            ChangeMaterial(offMaterial);
-            StopAudio();
-        }
+        
 
     }
 

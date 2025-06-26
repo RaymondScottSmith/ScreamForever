@@ -16,6 +16,8 @@ public class Phone : Interact
     public AudioSource phoneAudio;
 
     public AudioClip ringSound;
+    private bool gasSoaked;
+    public Animator gasAnimator;
 
     private void Awake()
     {
@@ -49,6 +51,25 @@ public class Phone : Interact
                 //readyToAdvance = true;
                 //CanvasManager.Instance.InterruptDisplay(baseInteraction);
                 phoneUI.SetActive(true);
+                break;
+            
+            case 5:
+                FirstPersonController fpc = FindObjectOfType<FirstPersonController>();
+                
+                if (gasSoaked)
+                {
+                    
+                }
+                else if (fpc.heldGascan.activeSelf)
+                {
+                    gasAnimator.GetComponent<LookAt>().ForceLook();
+                    fpc.canMove = false;
+                    fpc.heldGascan.SetActive(false);
+                    gasAnimator.SetTrigger("Pour");
+                    gasSoaked = true;
+                    StartCoroutine(fpc.ReturnGasCan());
+                }
+                readyToAdvance = true;
                 break;
             default:
                 readyToAdvance = true;
@@ -101,6 +122,9 @@ public class Phone : Interact
                 break;
             case 4:
                 needsReset = true;
+                break;
+            case 5:
+                readyToAdvance = false;
                 break;
             default:
                 readyToAdvance = true;

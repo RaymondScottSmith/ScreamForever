@@ -83,7 +83,7 @@ public class Phone : Interact
 
     private IEnumerator DelaySound()
     {
-        PlayLoop(ringSound);
+        PlayLoop(ringSound, 1.0f);
         yield return new WaitForSeconds(0.25f);
         lookAt.ForceLook();
     }
@@ -98,8 +98,9 @@ public class Phone : Interact
         phoneAudio.PlayOneShot(clip);
     }
 
-    public void PlayLoop(AudioClip clip)
+    public void PlayLoop(AudioClip clip, float volume = 0.5f)
     {
+        phoneAudio.volume = volume;
         phoneAudio.loop = true;
         phoneAudio.clip = clip;
         phoneAudio.Play();

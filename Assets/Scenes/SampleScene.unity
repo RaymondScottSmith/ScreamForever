@@ -6511,34 +6511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e5e2c741e414724bb82e6b18576760a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 739c6569a1eb0c448804a9e0e49f34b1, type: 3}
-  FilterQuality: 1
-  VideoMode: 1
-  DisplaySizeX: 960
-  DisplaySizeY: 650
-  StretchToDisplay: 1
-  AspectRatio: 1.33
-  EnableTVCurvature: 1
-  Curvature: 0.134
-  TVOverlay: {fileID: 2800000, guid: 983b4e2248d599443981d96b39576aeb, type: 3}
-  EnablePixelMask: 1
-  PixelMaskTexture: {fileID: 2800000, guid: 0a4236f7ea7fa4940a795446170f8f8f, type: 3}
-  MaskRepeatX: 160
-  MaskRepeatY: 90
-  PixelMaskBrightness: 1.195
-  IQOffset: {x: 0, y: 0}
-  IQScale: {x: 1, y: 1}
-  RFNoise: 0.25
-  LumaSharpen: 0
-  QuantizeRGB: 1
-  RBits: 8
-  GBits: 8
-  BBits: 8
-  EnableBurstCountAnimation: 1
-  AntiFlicker: 0
-  EnableRollingFlicker: 0
-  RollingFlickerFactor: 0.25
-  RollingVSyncTime: 1
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9408,6 +9380,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 396246986709888102, guid: 1068bac907a038d48aedefb681131dac, type: 3}
+      propertyPath: hum
+      value: 
+      objectReference: {fileID: 8300000, guid: 77110feebe520624d8ddfbdf0e3e28f7, type: 3}
+    - target: {fileID: 396246986709888102, guid: 1068bac907a038d48aedefb681131dac, type: 3}
       propertyPath: isOn
       value: 0
       objectReference: {fileID: 0}
@@ -9419,6 +9395,14 @@ PrefabInstance:
       propertyPath: gasAnimator
       value: 
       objectReference: {fileID: 96949184}
+    - target: {fileID: 396246986709888102, guid: 1068bac907a038d48aedefb681131dac, type: 3}
+      propertyPath: staticNoise
+      value: 
+      objectReference: {fileID: 8300000, guid: 5f4370a5723e8ad4a8be61e128892267, type: 3}
+    - target: {fileID: 396246986709888102, guid: 1068bac907a038d48aedefb681131dac, type: 3}
+      propertyPath: staticScream
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c24b100ac308704ab5cc54818ede9bf, type: 3}
     - target: {fileID: 2493648121221453995, guid: 1068bac907a038d48aedefb681131dac, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 

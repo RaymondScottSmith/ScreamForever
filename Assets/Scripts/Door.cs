@@ -40,12 +40,17 @@ public class Door : Iterable
         }
     }
 
-    public void CloseDoor()
+    public void CloseDoor(bool playAudio = true)
     {
         animator.ResetTrigger("Open");
         animator.SetTrigger("Close");
         open = false;
-        AudioSource.PlayClipAtPoint(closingEffect, transform.position);
+
+        if (playAudio)
+        {
+            AudioSource.PlayClipAtPoint(closingEffect, transform.position);
+        }
+
     }
 
     public void ChangeLockedState(bool isLocked)
@@ -68,6 +73,7 @@ public class Door : Iterable
             animator.ResetTrigger("Open");
             open = false;
             animator.SetTrigger("Close");
+            AudioSource.PlayClipAtPoint(closingEffect, transform.position);
             if (lockAfterPlayer)
             {
                 if (playerEnterDist > Vector3.Distance(other.transform.position, afterLocation.position))
@@ -86,7 +92,7 @@ public class Door : Iterable
     protected override void NextIteration(int newIter)
     {
         base.NextIteration(newIter);
-        CloseDoor();
+        CloseDoor(false);
         Debug.Log("Do extra door stuff here");
         switch (newIter)
         {

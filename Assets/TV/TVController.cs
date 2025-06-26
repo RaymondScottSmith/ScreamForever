@@ -18,6 +18,7 @@ public class TVController : Interact
 
     public Material screenMaterial;
     public Material staticMaterial; //used when the TV isn't showing anything
+    public Material staticWithFlickeringGirlMaterial; //a burned girl image flickers on the tv
     public Material offMaterial;
     public Material fullAdd;
     public Texture2D screenTexture;

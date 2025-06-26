@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8654375808648074426
+--- !u!114 &-4051038854301033350
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TVNoise
-  m_Shader: {fileID: -6465566751694194690, guid: 21fdc88e5a559384296f4426be9a1d6c, type: 3}
+  m_Name: TVWithGirlMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 8585cd889bf983247806e8287822d7b4, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -33,19 +33,13 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainImage:
-        m_Texture: {fileID: 2800000, guid: 6110836180fb16b49a56f8ea3b65cf95, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Overlay:
-        m_Texture: {fileID: 2800000, guid: ef0d2eac665df1745b4a7397a30dd012, type: 3}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: 84c9c9ee89fd5394dac99b0d5ec24ee7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Flicker: 0
-    - _ScrollSpeed: 0
     m_Colors: []
   m_BuildTextureStacks: []

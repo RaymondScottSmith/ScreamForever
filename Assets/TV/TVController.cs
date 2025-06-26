@@ -56,23 +56,21 @@ public class TVController : Interact
     // Start is called before the first frame update
     void Start()
     {
-
         screenMaterial.SetFloat("_ScrollSpeed", vValue);
         screenMaterial.SetFloat("_Flicker", hValue);
         soundEffect = new GameObject("TVSound");
-
-        Material[] materials = renderer.materials;
-        materials[1] = offMaterial;
-        renderer.materials = materials;
-
-        soundEffect = new GameObject("TVHum");
         soundEffect.transform.position = transform.position;
+
         AudioSource humSource = soundEffect.AddComponent<AudioSource>();
         humSource.loop = true;
         humSource.volume = 1f;
         humSource.spatialBlend = 1;
         humSource.clip = hum;
-        humSource.Play();
+        humSource.maxDistance = 20;
+
+        Material[] materials = renderer.materials;
+        materials[1] = offMaterial;
+        renderer.materials = materials;
     }
 
     // Update is called once per frame

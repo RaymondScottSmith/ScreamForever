@@ -119,7 +119,10 @@ public class Phone : Interact
         StopLoop();
         yield return new WaitForSeconds(0.5f);
         if (currentIter == 4)
+        {
             CanvasManager.Instance.WriteMultipleTexts(iter4Messages, true);
+            FindObjectOfType<NewspaperClip>().OfferNewPaper();
+        }
         readyToAdvance = true;
         IterationManager.Instance.ReadyToAdvance();
     }

@@ -24,6 +24,8 @@ public class FirstPersonController : MonoBehaviour
 
     public LayerMask playerMask;
 
+    public GameObject heldGascan;
+
     private void Awake()
     {
         grabber = GetComponentInChildren<Grabber>();

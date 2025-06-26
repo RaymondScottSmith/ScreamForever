@@ -6,6 +6,7 @@ public class NewspaperClip : Interact
 {
     public MeshRenderer renderer;
     public Collider collider;
+    
 
     private void Awake()
     {
@@ -19,7 +20,14 @@ public class NewspaperClip : Interact
         IterationManager.Instance.ReadyToAdvance();
         renderer.enabled = false;
         collider.enabled = false;
+        FindObjectOfType<TableNewspaper>().collider.enabled = true;
 
+    }
+
+    public void OfferNewPaper()
+    {
+        renderer.enabled = true;
+        collider.enabled = true;
     }
     protected override void NextIteration(int newIter)
     {
@@ -30,11 +38,9 @@ public class NewspaperClip : Interact
             renderer.enabled = true;
             collider.enabled = true;
         }
-        else if (newIter == 5)
+        else if (newIter == 4)
         {
-            renderer.enabled = true;
-            collider.enabled = true;
-            readyToAdvance = true;
+            readyToAdvance = false;
         }
         else
         {

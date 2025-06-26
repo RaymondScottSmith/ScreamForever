@@ -14,6 +14,7 @@ public class TableNewspaper : Interact
     private int paperNumber = 0;
 
     public Renderer pageRenderer;
+    public bool waiting;
 
     private void Awake()
     {
@@ -39,6 +40,10 @@ public class TableNewspaper : Interact
             renderer.enabled = true;
             collider.enabled = true;
         }
+        else if (newIter == 4)
+        {
+            readyToAdvance = false;
+        }
         else
         {
             readyToAdvance = true;
@@ -51,5 +56,11 @@ public class TableNewspaper : Interact
         paperNumber++;
         if (paperNumber < newspaperMaterials.Count)
             pageRenderer.material = newspaperMaterials[paperNumber];
+    }
+
+    public void WaitingForNewPiece()
+    {
+        waiting = true;
+        readyToAdvance = false;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fridge : Interact
 {
     private Animator fridgeAnimator;
+    public Collider mainCollider;
 
     private void Awake()
     {
@@ -29,6 +30,16 @@ public class Fridge : Interact
         switch (newIter)
         {
             case 0:
+                break;
+            case 5:
+                fridgeAnimator.SetTrigger("Open");
+                mainCollider.enabled = false;
+                readyToAdvance = true;
+                break;
+            case 6:
+                readyToAdvance = true;
+                fridgeAnimator.SetTrigger("Close");
+                mainCollider.enabled = true;
                 break;
             default:
                 readyToAdvance = true;

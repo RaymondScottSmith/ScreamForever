@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: Gas Can
   m_Shader: {fileID: 4800000, guid: 91061e341baaad240b2e499231c365c5, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

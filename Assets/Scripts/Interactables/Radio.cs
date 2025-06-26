@@ -14,6 +14,10 @@ public class Radio : Interact
 
     private bool playing = true;
     private float musicVolume;
+
+    private bool needsReset = true;
+
+    public List<string> messages;
     private void Awake()
     {
         musicVolume = musicSource.volume;
@@ -22,6 +26,21 @@ public class Radio : Interact
     {
         switch (currentIter)
         {
+            case 7:
+                if (needsReset)
+                {
+                    readyToAdvance = true;
+                    needsReset = false;
+                    //scaresSource.clip = screams;
+                    scaresSource.PlayOneShot(screams);
+                    CanvasManager.Instance.WriteMultipleTexts(messages,true);
+                    baseInteraction = "I didn't know...";
+                }
+                else
+                {
+                    CanvasManager.Instance.InterruptDisplay(baseInteraction);
+                }
+                break;
             default:
                 if (playing)
                 {
@@ -32,10 +51,11 @@ public class Radio : Interact
                 {
                     playing = true;
                     musicSource.volume = musicVolume;
-                }
+                } 
                 readyToAdvance = true;
                 CanvasManager.Instance.InterruptDisplay(baseInteraction);
                 break;
+               
         }
         IterationManager.Instance.ReadyToAdvance();
         
@@ -49,6 +69,15 @@ public class Radio : Interact
             case 0:
                 break;
             case 7:
+                musicSource.clip = policeChatter;
+                musicSource.volume = musicVolume;
+                musicSource.Play();
+                break;
+            case 8:
+                musicSource.clip = baseSong;
+                musicSource.volume = musicVolume;
+                musicSource.pitch = 0.6f;
+                musicSource.Play();
                 break;
             default:
                 playing = true;

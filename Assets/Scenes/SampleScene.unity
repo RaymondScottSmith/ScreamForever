@@ -5375,7 +5375,11 @@ MonoBehaviour:
   baseSong: {fileID: 8300000, guid: d1ba8c9c3345f694dbf22d5e70b97d4f, type: 3}
   policeChatter: {fileID: 8300000, guid: 399bca9630d44674d911d0cc79e0a353, type: 3}
   speech: {fileID: 0}
-  screams: {fileID: 8300000, guid: a2d886e9f8d1c8047a898ae5e4736707, type: 3}
+  screams: {fileID: 8300000, guid: 9c24b100ac308704ab5cc54818ede9bf, type: 3}
+  messages:
+  - "\u201CWhy were they there? This can\u2019t be happening. This can\u2019t be
+    real.\""
+  - "\u201CWhy can't I wake from this nightmare?\""
 --- !u!65 &874461950
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5448,7 +5452,7 @@ Transform:
   m_GameObject: {fileID: 874461948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.933, y: 0.725, z: 1.851}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1012446165}
@@ -5574,7 +5578,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -6836,6 +6840,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 61b40d8a63038fe48ab616bfe05702e2, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 61b40d8a63038fe48ab616bfe05702e2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -7311,7 +7319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111b6a5e6dcadda4c8664d4af98ecee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentIteration: 7
+  currentIteration: 8
   interactables:
   - {fileID: 1715559213}
   - {fileID: 1764665002}

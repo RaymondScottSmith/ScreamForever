@@ -36,6 +36,9 @@ public class TVController : Interact
     public enum axis { H, V }
     public enum dir { left, right };
 
+    public AudioClip staticNoise;
+    public AudioClip staticScream;
+
     private Collider tvCollider;
 
     private void Awake()
@@ -44,18 +47,19 @@ public class TVController : Interact
         tvCollider = GetComponent<Collider>();
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
 
         screenMaterial.SetFloat("_ScrollSpeed", vValue);
         screenMaterial.SetFloat("_Flicker", hValue);
+        soundEffect = new GameObject("TVSound");
 
         Material[] materials = renderer.materials;
         materials[1] = offMaterial;
         renderer.materials = materials;
 
-        /*
         soundEffect = new GameObject("TVHum");
         soundEffect.transform.position = transform.position;
         AudioSource humSource = soundEffect.AddComponent<AudioSource>();
@@ -64,7 +68,6 @@ public class TVController : Interact
         humSource.spatialBlend = 1;
         humSource.clip = hum;
         humSource.Play();
-        */
     }
 
     // Update is called once per frame
@@ -162,17 +165,19 @@ public class TVController : Interact
     {
         //@todo on/off mechanics for TV
 
+        if (soundEffect == null) return;
+
         if (state)
         {
-            if (soundEffect != null) soundEffect.GetComponent<AudioSource>().Play();
+            soundEffect.GetComponent<AudioSource>().Play();
         } else
         {
-            if (soundEffect != null) soundEffect.GetComponent<AudioSource>().Stop();
+            soundEffect.GetComponent<AudioSource>().Stop();
         }
 
         isOn = state;
     }
-    
+  
     protected override void NextIteration(int newIter)
     {
         base.NextIteration(newIter);

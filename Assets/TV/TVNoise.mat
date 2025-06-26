@@ -45,7 +45,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Flicker: 0
-    - _ScrollSpeed: 0
+    - _Flicker: -10
+    - _ScrollSpeed: 10
     m_Colors: []
   m_BuildTextureStacks: []

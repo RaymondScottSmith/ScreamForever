@@ -42,6 +42,10 @@ public class NewspaperClip : Interact
         {
             readyToAdvance = false;
         }
+        else if (newIter == 8)
+        {
+            readyToAdvance = false;
+        }
         else
         {
             readyToAdvance = true;

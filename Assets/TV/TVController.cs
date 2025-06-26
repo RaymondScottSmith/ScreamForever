@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
@@ -31,6 +32,8 @@ public class TVController : Interact
     public AudioClip hum;
     private AudioSource audioSource;
 
+    public GameObject girlGhost;
+
     private GameObject soundEffect;
     public bool isOn = true;
 
@@ -46,16 +49,26 @@ public class TVController : Interact
 
     public bool gasSoaked;
 
+    public Lamp overheadLight;
+
+    public AudioClip scream;
+
+    private bool notInteractive;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         tvCollider = GetComponent<Collider>();
+        Material[] materials = renderer.materials;
+        materials[1] = offMaterial;
+        renderer.materials = materials;
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        girlGhost.SetActive(false);
         screenMaterial.SetFloat("_ScrollSpeed", vValue);
         screenMaterial.SetFloat("_Flicker", hValue);
         soundEffect = new GameObject("TVSound");
@@ -68,9 +81,7 @@ public class TVController : Interact
         humSource.clip = hum;
         humSource.maxDistance = 20;
 
-        Material[] materials = renderer.materials;
-        materials[1] = offMaterial;
-        renderer.materials = materials;
+        
     }
 
     // Update is called once per frame
@@ -183,6 +194,7 @@ public class TVController : Interact
   
     protected override void NextIteration(int newIter)
     {
+        notInteractive = false;
         base.NextIteration(newIter);
         switch (newIter)
         {
@@ -194,6 +206,12 @@ public class TVController : Interact
             
             case 5:
                 ChangeMaterial(offMaterial);
+                tvCollider.enabled = true;
+                break;
+            case 8:
+                isOn = true;
+                ChangeMaterial(staticWithFlickeringGirlMaterial);
+                StartLoopingAudio(staticNoise);
                 tvCollider.enabled = true;
                 break;
             default:
@@ -219,6 +237,8 @@ public class TVController : Interact
     public override void Interaction()
     {
         base.Interaction();
+        if (notInteractive)
+            return;
         switch (currentIter)
         {
             case 5:
@@ -239,6 +259,13 @@ public class TVController : Interact
                 }
                 readyToAdvance = true;
                 IterationManager.Instance.ReadyToAdvance();
+                break;
+            
+            case 8:
+                StartCoroutine(GhostGirlJS());
+                FindObjectOfType<NewspaperClip>().OfferNewPaper();
+                
+                notInteractive = true;
                 break;
 
             default:
@@ -265,11 +292,36 @@ public class TVController : Interact
 
     }
 
+    private IEnumerator GhostGirlJS()
+    {
+        overheadLight.StartFlickering();
+        GetComponentInParent<AudioSource>().PlayOneShot(scream);
+        FirstPersonController fpc = FindObjectOfType<FirstPersonController>();
+        fpc.enabled = false;
+        yield return new WaitForSeconds(10f);
+        
+        ChangeMaterial(offMaterial);
+        StopAudio();
+        yield return new WaitForSeconds(0.5f);
+        girlGhost.SetActive(true);
+        girlGhost.GetComponentInChildren<LookAt>().ForceLook();
+        yield return new WaitForSeconds(1f);
+        girlGhost.SetActive(false);
+        overheadLight.StopFlickering();
+        yield return new WaitForSeconds(0.5f);
+        fpc.enabled = true;
+        readyToAdvance = true;
+        IterationManager.Instance.ReadyToAdvance();
+
+
+    }
+
     public void ChangeMaterial(Material newMaterial)
     {
         Debug.Log("Should be changing material");
         Material[] materials = renderer.materials;
         materials[1] = newMaterial;
         renderer.materials = materials;
+        Debug.Log(renderer.materials[1].name);
     }
 }

@@ -46,6 +46,8 @@ public class TableNewspaper : Interact
         }
         else if (newIter == 6)
             readyToAdvance = false;
+        else if (newIter == 8)
+            readyToAdvance = false;
         else
         {
             readyToAdvance = true;

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Lamp : Iterable
 {
+    public bool directControl;
     protected override void NextIteration(int newIter)
     {
         base.NextIteration(newIter);
-        if (newIter == 3)
+        if (newIter == 3 && !directControl)
         {
             StartFlickering();
         }

@@ -78,6 +78,7 @@ public class Radio : Interact
                 musicSource.volume = musicVolume;
                 musicSource.pitch = 0.6f;
                 musicSource.Play();
+                readyToAdvance = true;
                 break;
             default:
                 playing = true;

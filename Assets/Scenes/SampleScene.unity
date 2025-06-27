@@ -8849,6 +8849,8 @@ MonoBehaviour:
   textPane: {fileID: 434479644}
   subText: {fileID: 1076092916}
   typeDelay: 0.1
+  showExitButtons: 0
+  buttons: {fileID: 0}
 --- !u!1001 &1012446164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9384,7 +9386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111b6a5e6dcadda4c8664d4af98ecee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentIteration: 12
+  currentIteration: 0
   interactables:
   - {fileID: 1715559213}
   - {fileID: 1764665002}

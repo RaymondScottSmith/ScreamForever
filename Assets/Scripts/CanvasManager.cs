@@ -37,14 +37,15 @@ public class CanvasManager : MonoBehaviour
     {
         if (showExitButtons)
         {
-            
+            StartCoroutine(ShowButtons());
         }
     }
 
     private IEnumerator ShowButtons()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
         
+        buttons.SetActive(true);
     }
 
     //will not interrupt current message
@@ -130,7 +131,7 @@ public class CanvasManager : MonoBehaviour
 
     public void GoToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("_TitleScreen");
     }
 
     public void Exit()

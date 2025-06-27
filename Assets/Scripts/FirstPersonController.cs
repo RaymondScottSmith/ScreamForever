@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
@@ -113,6 +114,7 @@ public class FirstPersonController : MonoBehaviour
             if (facePaper.activeSelf)
             {
                 facePaper.SetActive(false);
+                SceneManager.LoadScene("EndingScene");
                 canMove = true;
                 return;
             }

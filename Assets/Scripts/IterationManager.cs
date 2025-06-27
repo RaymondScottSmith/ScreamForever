@@ -13,6 +13,9 @@ public class IterationManager : MonoBehaviour
 
     public Door exitDoor;
 
+    private bool playedSound;
+    private AudioSource unlockSound;
+
     private void Awake()
     {
         if (IterationManager.Instance == null)
@@ -27,6 +30,7 @@ public class IterationManager : MonoBehaviour
 
     public void Start()
     {
+        unlockSound = GetComponent<AudioSource>();
         if (currentIteration > 0)
         {
             currentIteration--;
@@ -47,7 +51,18 @@ public class IterationManager : MonoBehaviour
                 
         }
 
-        exitDoor.locked = false;
+        if (!playedSound)
+        {
+            unlockSound.Play();
+            playedSound = true;
+        }
+        if (currentIteration != 12)
+            exitDoor.locked = false;
+        else
+        {
+            exitDoor.locked = true;
+        }
+        
     }
 
     public void StartNextIteration()
@@ -56,6 +71,7 @@ public class IterationManager : MonoBehaviour
         
         NextIteration();
         exitDoor.locked = true;
+        playedSound = false;
         ReadyToAdvance();
     }
 

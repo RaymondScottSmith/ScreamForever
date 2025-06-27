@@ -32,6 +32,14 @@ public class FirstPersonController : MonoBehaviour
     public int totalGasUses = 3;
 
     public GameObject facePaper;
+    public Animator animator;
+    
+    public void TurnOffAnimator()
+    {
+        animator.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     private void Awake()
     {

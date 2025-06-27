@@ -1,18 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTrigger : MonoBehaviour
+public class PlayerTrigger : Iterable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public bool triggered;
+    public int iterTrigger;
+
+    public GameObject item;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (!triggered && other.CompareTag("Player") && currentIter == iterTrigger)
+        {
+            triggered = true;
+            item.SetActive(true);
+        }
+    }
+    
+    protected override void NextIteration(int newIter)
+    {
+        base.NextIteration(newIter);
+        switch (newIter)
+        {
+            default:
+                item.SetActive(false);
+                break;
+        }
     }
 }

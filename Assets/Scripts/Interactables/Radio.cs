@@ -17,6 +17,8 @@ public class Radio : Interact
 
     private bool needsReset = true;
 
+    public AudioClip wasItWorth;
+
     public List<string> messages;
     private void Awake()
     {
@@ -42,6 +44,10 @@ public class Radio : Interact
                 }
                 break;
             
+            case 10:
+                CanvasManager.Instance.InterruptDisplay("They weren't supposed to be here!");
+                break;
+            
             default:
                 if (playing)
                 {
@@ -60,6 +66,22 @@ public class Radio : Interact
         }
         IterationManager.Instance.ReadyToAdvance();
         
+    }
+
+    private IEnumerator WorthIt()
+    {
+        musicSource.volume = 0f;
+        scaresSource.clip = wasItWorth;
+        scaresSource.loop = true;
+        scaresSource.Play();
+        while (IterationManager.Instance.currentIteration == 10)
+        {
+            yield return new WaitForSeconds(2f);
+            scaresSource.pitch = 0.7f + Random.Range(0, 0.3f);
+        }
+
+        scaresSource.loop = false;
+        scaresSource.Stop();
     }
     
     protected override void NextIteration(int newIter)
@@ -86,6 +108,10 @@ public class Radio : Interact
                 playing = false;
                 musicSource.volume = 0f;
                 readyToAdvance = true;
+                break;
+            case 10:
+                readyToAdvance = true;
+                StartCoroutine(WorthIt());
                 break;
             default:
                 playing = true;

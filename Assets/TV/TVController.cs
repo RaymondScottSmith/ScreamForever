@@ -267,6 +267,9 @@ public class TVController : Interact
                 
                 notInteractive = true;
                 break;
+            
+            case 11:
+                break;
 
             default:
                 isOn = !isOn;

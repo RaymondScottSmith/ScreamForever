@@ -100,6 +100,8 @@ public class Phone : Interact
                     }
                 }
                 break;
+            case 11:
+                break;
             default:
                 readyToAdvance = true;
                 //CanvasManager.Instance.InterruptDisplay(baseInteraction);

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Application = UnityEngine.Device.Application;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class CanvasManager : MonoBehaviour
     private string currentText = "";
     private bool typingDialogue;
 
+    public bool showExitButtons;
+
+    public GameObject buttons;
+
     private void Awake()
     {
         if (Instance == null)
@@ -25,6 +31,20 @@ public class CanvasManager : MonoBehaviour
         {
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        if (showExitButtons)
+        {
+            
+        }
+    }
+
+    private IEnumerator ShowButtons()
+    {
+        yield return new WaitForSeconds(4f);
+        
     }
 
     //will not interrupt current message
@@ -106,6 +126,16 @@ public class CanvasManager : MonoBehaviour
         subText.text = "";
         textPane.SetActive(false);
         typingDialogue = false;
+    }
+
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 
 

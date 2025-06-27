@@ -6,6 +6,9 @@ public class Couch : Interact
 {
     public Animator gasCanAnimator;
     private bool gasSoaked;
+    private bool onFire;
+
+    public GameObject fireParticles;
 
     private void Awake()
     {
@@ -35,6 +38,28 @@ public class Couch : Interact
                     CanvasManager.Instance.InterruptDisplay(baseInteraction);
                 }
                 break;
+            case 11:
+                break;
+            case 12:
+                FirstPersonController controller = FindObjectOfType<FirstPersonController>();
+                
+                if (controller.heldLighter.activeSelf && !onFire)
+                {
+
+                    onFire = true;
+                    fireParticles.SetActive(true);
+                    controller.heldLighter.SetActive(false);
+                    readyToAdvance = true;
+                    IterationManager.Instance.ReadyToAdvance();
+                    FindObjectOfType<NewspaperClip>().OfferNewPaper();
+                    baseInteraction = "No one was supposed to be home...";
+                }
+                else
+                {
+                    CanvasManager.Instance.InterruptDisplay(baseInteraction);
+                }
+
+                break;
             default:
                 readyToAdvance = true;
                 CanvasManager.Instance.InterruptDisplay(baseInteraction);
@@ -54,6 +79,8 @@ public class Couch : Interact
             case 0:
                 break;
             case 5:
+                break;
+            case 12:
                 break;
             default:
                 readyToAdvance = true;

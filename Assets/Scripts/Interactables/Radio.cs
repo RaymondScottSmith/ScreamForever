@@ -47,6 +47,8 @@ public class Radio : Interact
             case 10:
                 CanvasManager.Instance.InterruptDisplay("They weren't supposed to be here!");
                 break;
+            case 11:
+                break;
             
             default:
                 if (playing)
@@ -112,6 +114,14 @@ public class Radio : Interact
             case 10:
                 readyToAdvance = true;
                 StartCoroutine(WorthIt());
+                break;
+            case 11:
+                readyToAdvance = true;
+                musicSource.volume = 0f;
+                break;
+            case 12:
+                readyToAdvance = true;
+                musicSource.volume = 0f;
                 break;
             default:
                 playing = true;

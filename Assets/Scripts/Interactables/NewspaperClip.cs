@@ -46,6 +46,11 @@ public class NewspaperClip : Interact
         {
             readyToAdvance = false;
         }
+        else if (newIter == 11)
+        {
+            readyToAdvance = false;
+            OfferNewPaper();
+        }
         else
         {
             readyToAdvance = true;

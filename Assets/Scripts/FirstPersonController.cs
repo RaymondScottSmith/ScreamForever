@@ -25,9 +25,12 @@ public class FirstPersonController : MonoBehaviour
     public LayerMask playerMask;
 
     public GameObject heldGascan;
+    public GameObject heldLighter;
 
     public int numGasUses = 0;
     public int totalGasUses = 3;
+
+    public GameObject facePaper;
 
     private void Awake()
     {
@@ -107,6 +110,12 @@ public class FirstPersonController : MonoBehaviour
     
         if (Input.GetMouseButtonDown(0))
         {
+            if (facePaper.activeSelf)
+            {
+                facePaper.SetActive(false);
+                canMove = true;
+                return;
+            }
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
             //Debug.DrawRay(playerCamera.transform.position, playerCamera.ScreenPointToRay(Input.mousePosition).direction.normalized*2f, Color.green,20f );
             RaycastHit hit;

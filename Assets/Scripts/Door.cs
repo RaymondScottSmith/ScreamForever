@@ -19,12 +19,17 @@ public class Door : Iterable
     public AudioClip openingEffect;
     public AudioClip closingEffect;
 
+    public bool exitDoor;
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
     public void OpenDoor()
     {
+        if (locked && exitDoor && IterationManager.Instance.currentIteration == 9)
+        {
+            phone.CallWhenFire();
+        }
         if (locked)
         {
             Debug.Log("Add door is locked message");

@@ -41,6 +41,7 @@ public class Radio : Interact
                     CanvasManager.Instance.InterruptDisplay(baseInteraction);
                 }
                 break;
+            
             default:
                 if (playing)
                 {
@@ -78,6 +79,12 @@ public class Radio : Interact
                 musicSource.volume = musicVolume;
                 musicSource.pitch = 0.6f;
                 musicSource.Play();
+                readyToAdvance = true;
+                break;
+            
+            case 9:
+                playing = false;
+                musicSource.volume = 0f;
                 readyToAdvance = true;
                 break;
             default:

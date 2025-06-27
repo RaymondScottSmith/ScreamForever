@@ -8,6 +8,8 @@ public class Phone : Interact
     public List<string> iter1Messages;
     public List<string> iter4Messages;
 
+    public List<string> iter9Messages;
+
     private LookAt lookAt;
     
     public bool needsReset;
@@ -18,6 +20,10 @@ public class Phone : Interact
     public AudioClip ringSound;
     private bool gasSoaked;
     public Animator gasAnimator;
+
+    public bool readyForFire;
+
+    public GameObject burningFamily;
 
     private void Awake()
     {
@@ -71,6 +77,29 @@ public class Phone : Interact
                 }
                 readyToAdvance = true;
                 break;
+            case 9:
+                if (!readyForFire)
+                {
+                    readyToAdvance = false;
+                    //CanvasManager.Instance.InterruptDisplay(baseInteraction);
+                    phoneUI.SetActive(true);
+                }
+                else
+                {
+                    if (!needsReset)
+                    {
+                        StopLoop();
+                        CanvasManager.Instance.WriteMultipleTexts(iter9Messages, true);
+                        needsReset = true;
+                        readyToAdvance = true;
+                        StartCoroutine(WaitForWriteToFinish());
+                    }
+                    else
+                    {
+                        phoneUI.SetActive(true);
+                    }
+                }
+                break;
             default:
                 readyToAdvance = true;
                 //CanvasManager.Instance.InterruptDisplay(baseInteraction);
@@ -86,6 +115,29 @@ public class Phone : Interact
         PlayLoop(ringSound, 1.0f);
         yield return new WaitForSeconds(0.25f);
         lookAt.ForceLook();
+    }
+
+    private IEnumerator WaitForWriteToFinish()
+    {
+        FirstPersonController fpc = FindObjectOfType<FirstPersonController>();
+        while (!fpc.enabled)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        burningFamily.SetActive(true);
+        
+        burningFamily.GetComponentInChildren<LookAt>().ForceLook();
+        yield return new WaitForSeconds(4f);
+        burningFamily.SetActive(false);
+        readyToAdvance = true;
+        IterationManager.Instance.ReadyToAdvance();
+    }
+
+    public void CallWhenFire()
+    {
+        StartCoroutine(DelaySound());
+        readyForFire = true;
+
     }
 
     public void ForceLook()
@@ -126,6 +178,9 @@ public class Phone : Interact
                 break;
             case 5:
                 readyToAdvance = false;
+                break;
+            case 9:
+                needsReset = false;
                 break;
             default:
                 readyToAdvance = true;

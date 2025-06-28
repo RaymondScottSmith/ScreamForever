@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Application = UnityEngine.Device.Application;
+using Cursor = UnityEngine.Cursor;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -44,7 +45,8 @@ public class CanvasManager : MonoBehaviour
     private IEnumerator ShowButtons()
     {
         yield return new WaitForSeconds(5f);
-        
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         buttons.SetActive(true);
     }
 

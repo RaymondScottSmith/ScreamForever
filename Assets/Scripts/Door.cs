@@ -18,6 +18,7 @@ public class Door : Iterable
     public AudioClip lockedEffect;
     public AudioClip openingEffect;
     public AudioClip closingEffect;
+    private bool phoneTriggered;
 
     public bool exitDoor;
     private void Awake()
@@ -33,7 +34,7 @@ public class Door : Iterable
         if (locked)
         {
             Debug.Log("Add door is locked message");
-            AudioSource.PlayClipAtPoint(lockedEffect, transform.position);
+            AudioSource.PlayClipAtPoint(lockedEffect, transform.position,1f);
             return;
         }
         else
@@ -87,9 +88,10 @@ public class Door : Iterable
                 }
             }
 
-            if (currentIter == 1 && lRoomEntrance)
+            if (currentIter == 1 && lRoomEntrance && !phoneTriggered)
             {
                 phone.ForceLook();
+                phoneTriggered = true;
             }
         }
     }

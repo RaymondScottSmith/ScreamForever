@@ -11,9 +11,12 @@ public class BedDoor : Interact
     public LookAt bodyLookAt;
 
     public Collider triggerCollider;
+    public AudioClip lockedSound;
+    private AudioSource source;
     private void Awake()
     {
         //animator = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
     }
     
     public override void Interaction()
@@ -31,6 +34,10 @@ public class BedDoor : Interact
                             bodyLookAt.ForceLook();
                     }
                         
+                }
+                else
+                {
+                    source.PlayOneShot(lockedSound);
                 }
                 readyToAdvance = true;
                 //CanvasManager.Instance.InterruptDisplay(baseInteraction);

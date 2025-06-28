@@ -25,6 +25,8 @@ public class Phone : Interact
 
     public GameObject burningFamily;
 
+    public AudioClip pickupSound;
+
     private void Awake()
     {
         lookAt = GetComponent<LookAt>();
